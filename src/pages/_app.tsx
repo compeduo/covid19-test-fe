@@ -15,8 +15,6 @@ const useStyles = makeStyles(theme => ({
   },
   layout: {
     width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       marginLeft: 'auto',
@@ -26,20 +24,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // useEffect(() => {
-  //   // Remove the server-side injected CSS.
-  //   const jssStyles = document.querySelector('#jss-server-side')
-  //   if (jssStyles) {
-  //     jssStyles.parentElement.removeChild(jssStyles)
-  //   }
-  // }, [])
-
   const classes = useStyles()
 
   return (
     <>
       <Head>
-        <title>Covid-90 test</title>
+        <title>Covid-19 test</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
