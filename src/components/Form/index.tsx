@@ -15,6 +15,7 @@ import {
   StepName,
   StepProps,
 } from '~/components/Form/steps'
+import { getResultLevel, ResultLevel } from '~/utils/results'
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -118,22 +119,23 @@ export const Form: React.FC = () => {
                     Zpět
                   </Button>
                 )}
-                {activeStep === steps.length - 1 && (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    disabled={formikProps.isSubmitting}
-                    onClick={formikProps.submitForm}
-                  >
-                    Odeslat
-                    {formikProps.isSubmitting && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.progressIcon}
-                      />
-                    )}
-                  </Button>
-                )}
+                {activeStep === steps.length - 1 &&
+                  getResultLevel(formikProps.values) !== ResultLevel.None && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      disabled={formikProps.isSubmitting}
+                      onClick={formikProps.submitForm}
+                    >
+                      Odeslat
+                      {formikProps.isSubmitting && (
+                        <CircularProgress
+                          size={24}
+                          className={classes.progressIcon}
+                        />
+                      )}
+                    </Button>
+                  )}
                 {activeStep < steps.length - 1 && (
                   <Button
                     variant="contained"
