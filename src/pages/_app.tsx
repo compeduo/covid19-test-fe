@@ -1,13 +1,7 @@
-import {
-  AppBar,
-  CssBaseline,
-  makeStyles,
-  Toolbar,
-  Typography,
-} from '@material-ui/core'
+import { CssBaseline, makeStyles } from '@material-ui/core'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -15,6 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
   layout: {
     width: 'auto',
+    marginTop: 0,
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       marginLeft: 'auto',
@@ -42,13 +37,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <CssBaseline />
 
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Covid-19 Test
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main className={classes.layout}>
         <Component {...pageProps} />
       </main>
