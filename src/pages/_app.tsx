@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Covid-19 test</title>
+        <title>Covid-19 Test</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Covid-19 test
+            Covid-19 Test
           </Typography>
         </Toolbar>
       </AppBar>

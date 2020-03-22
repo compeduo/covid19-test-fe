@@ -8,7 +8,7 @@ export const Step01: React.FC<StepProps> = ({ values }) => {
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        Máte některý z těchto symptomů?
+        Máte některý z těchto symptomů? (můžete vybrat více možností)
       </Typography>
       <FormGroup>
         <Field
@@ -39,7 +39,7 @@ export const Step01: React.FC<StepProps> = ({ values }) => {
         />
         <Field
           component={CheckboxWithLabel}
-          name="age"
+          name="old"
           type="checkbox"
           Label={{ label: 'Více jak 60 let' }}
         />

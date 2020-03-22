@@ -1,14 +1,32 @@
 import { Form as FormikForm, Formik, FormikProps } from 'formik'
 import React, { useCallback, useState } from 'react'
-import { makeStyles, Button, Stepper, StepLabel, Step } from '@material-ui/core'
-import { Step01, Step02, StepName, StepProps } from '~/components/Form/steps'
+import {
+  makeStyles,
+  Button,
+  Stepper,
+  StepLabel,
+  Step,
+  CircularProgress,
+} from '@material-ui/core'
+import {
+  Step01,
+  Step02,
+  Step03,
+  StepName,
+  StepProps,
+} from '~/components/Form/steps'
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 export interface FormValues {
   fever: boolean
   longFever: boolean
   breathing: boolean
   cough: boolean
-  age: boolean
+  old: boolean
+  phone: string
 }
 
 const initialValues = {
@@ -16,7 +34,8 @@ const initialValues = {
   longFever: false,
   breathing: false,
   cough: false,
-  age: false,
+  old: false,
+  phone: '',
 }
 
 const stepMap: {
@@ -26,7 +45,8 @@ const stepMap: {
   }
 } = {
   [StepName.Step01]: { label: 'Symptomy', component: Step01 },
-  [StepName.Step02]: { label: 'Vyhodnocení', component: Step02 },
+  [StepName.Step02]: { label: 'Výsledek', component: Step02 },
+  [StepName.Step03]: { label: 'Odesláno', component: Step03 },
 }
 
 const steps = [StepName.Step01, StepName.Step02]
@@ -36,17 +56,35 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  button: {
+    marginRight: theme.spacing(1),
+  },
   stepper: {
     padding: theme.spacing(3, 0, 5),
+  },
+  progressIcon: {
+    position: 'absolute',
   },
 }))
 
 export const Form: React.FC = () => {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(steps[0])
+
+  const handleBack = useCallback(() => {
+    setActiveStep(activeStep - 1)
+  }, [activeStep])
   const handleNext = useCallback(() => {
     setActiveStep(activeStep + 1)
-  }, [])
+  }, [activeStep])
+
+  const handleSubmit = useCallback(
+    async (values, { setSubmitting }) => {
+      await delay(1000)
+      handleNext()
+    },
+    [activeStep]
+  )
 
   const ActiveStep = stepMap[activeStep].component
 
@@ -61,8 +99,13 @@ export const Form: React.FC = () => {
       </Stepper>
       <Formik<FormValues>
         initialValues={initialValues}
-        onSubmit={values => {
-          console.log(values)
+        onSubmit={handleSubmit}
+        validate={values => {
+          const errors: Partial<FormValues> = {}
+          if (!values.phone) {
+            errors.phone = 'Povinné'
+          }
+          return errors
         }}
       >
         {formikProps => {
@@ -70,13 +113,36 @@ export const Form: React.FC = () => {
             <FormikForm>
               <ActiveStep {...formikProps} />
               <div className={classes.buttons}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                >
-                  Next
-                </Button>
+                {activeStep !== 0 && activeStep !== steps.length && (
+                  <Button onClick={handleBack} className={classes.button}>
+                    Zpět
+                  </Button>
+                )}
+                {activeStep === steps.length - 1 && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={formikProps.isSubmitting}
+                    onClick={formikProps.submitForm}
+                  >
+                    Odeslat
+                    {formikProps.isSubmitting && (
+                      <CircularProgress
+                        size={24}
+                        className={classes.progressIcon}
+                      />
+                    )}
+                  </Button>
+                )}
+                {activeStep < steps.length - 1 && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                  >
+                    Další
+                  </Button>
+                )}
               </div>
             </FormikForm>
           )

@@ -1,10 +1,12 @@
 import { Typography } from '@material-ui/core'
+import { Field } from 'formik'
 import React from 'react'
 import { StepProps } from '~/components/Form/steps/index'
+import { TextField } from 'formik-material-ui'
 
 export const Step02: React.FC<StepProps> = ({ values }) => {
   let message
-  if (values.breathing || (values.fever && values.cough) || values.age) {
+  if (values.breathing || (values.fever && values.cough) || values.old) {
     message = 'Volejte ihned linku 155 a postupujte dle instrukcí operátora.'
   } else if (values.fever || values.cough) {
     message =
@@ -23,9 +25,23 @@ export const Step02: React.FC<StepProps> = ({ values }) => {
       <Typography variant="h6" gutterBottom>
         Vyhodnocení
       </Typography>
-      <div>{message}</div>
-      ------
-      <div>Kontaktni formular</div>
+      <Typography variant="body1" gutterBottom>
+        {message}
+      </Typography>
+      <Typography variant="h6" gutterBottom>
+        Asistence
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Nedokážete si to vyřídit sami? Zanechejte nám kontakt a náš operátor se
+        Vám ozve.
+      </Typography>
+      <Field
+        component={TextField}
+        name="phone"
+        type="text"
+        label="Telefonní číslo"
+        required
+      />
     </>
   )
 }
