@@ -1,13 +1,14 @@
-import { Form as FormikForm, Formik, FormikProps } from 'formik'
-import React, { useCallback, useState } from 'react'
 import {
-  makeStyles,
   Button,
-  Stepper,
-  StepLabel,
-  Step,
   CircularProgress,
+  makeStyles,
+  Step,
+  StepLabel,
+  Stepper,
 } from '@material-ui/core'
+import axios from 'axios'
+import { Form as FormikForm, Formik } from 'formik'
+import React, { useCallback, useState } from 'react'
 import {
   Step01,
   Step02,
@@ -80,8 +81,15 @@ export const Form: React.FC = () => {
   }, [activeStep])
 
   const handleSubmit = useCallback(
-    async (values, { setSubmitting }) => {
-      await delay(1000)
+    async data => {
+      const response = await axios({
+        method: 'post',
+        url: 'https://compeduo.cz/form/',
+        data,
+      })
+
+      console.log(response)
+
       handleNext()
     },
     [activeStep]
