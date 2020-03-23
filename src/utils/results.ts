@@ -19,12 +19,22 @@ export const resultMessage: { [result in ResultLevel]: string } = {
     'Volejte ihned linku 155 a postupujte dle instrukcí operátora.',
 }
 
-export const getResultLevel = (values: FormValues) => {
-  if (values.breathing || (values.fever && values.cough) || values.old) {
+export const getResultLevel = ({
+  breathing,
+  fever,
+  longFever,
+  cough,
+  old,
+}: FormValues) => {
+  if (
+    breathing ||
+    (fever && cough) ||
+    (old && (breathing || fever || longFever || cough))
+  ) {
     return ResultLevel.High
-  } else if (values.fever || values.cough) {
+  } else if (fever || cough) {
     return ResultLevel.Medium
-  } else if (values.fever && !values.longFever) {
+  } else if (fever && !longFever) {
     return ResultLevel.Low
   } else {
     return ResultLevel.None
