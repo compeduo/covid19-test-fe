@@ -82,15 +82,17 @@ export const Form: React.FC = () => {
 
   const handleSubmit = useCallback(
     async data => {
-      const response = await axios({
-        method: 'post',
-        url: 'https://compeduo.cz/form/',
-        data,
-      })
+      try {
+        await axios({
+          method: 'post',
+          url: 'https://compeduo.cz/form/',
+          data,
+        })
 
-      console.log(response)
-
-      handleNext()
+        handleNext()
+      } catch (e) {
+        alert('Něco se pokazilo. Zkuste to znova.')
+      }
     },
     [activeStep]
   )
