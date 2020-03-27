@@ -9,14 +9,13 @@ export enum ResultLevel {
 
 export const resultMessage: { [result in ResultLevel]: string } = {
   [ResultLevel.None]:
-    'Pokud nemáte ani jeden z příznaků, nejedná se pravděpodobně o COVID-19. Průběžně sledujte svůj zdravotní stav a 2x denně si měřte teplotu.',
+    'Nếu như bạn không có 1 trong những triệu chứng trên thì có khả năng bạn không bị nhiễm Covid-19, hãy tự theo dõi tình trạng sức khoẻ của bản thân, đo thân nhiệt 2 lần một ngày.',
   [ResultLevel.Low]:
-    'Pokud máte pouze horečku po dobu kratší než 2 dny, je nutno brát ohled na sebe i ostatní. ' +
-    'Zůstaňte v domácí karanténě, sledujte teplotu a užívejte léky proti horečce.',
+    'Nếu chỉ bị sốt (dưới 2 ngày), hãy chủ động theo dõi sức khỏe của bản thân và lưu ý tình trạng sức khỏe của cả những người xung quanh. ' +
+    'Bạn hãy tự cách ly tại nhà, kiểm tra thân nhiệt và uống thuốc hạ sốt nếu sốt trên 38,5°C.',
   [ResultLevel.Medium]:
-    'Kontaktujte telefonicky svého praktického lékaře nebo pohotovost (v případě, že voláte mimo jeho pracovní dobu).',
-  [ResultLevel.High]:
-    'Volejte ihned linku 155 a postupujte dle instrukcí operátora.',
+    'Bạn hãy gọi cho bác sĩ khu vực hoặc gọi cấp cứu nếu tình trạng sức khỏe chuyển biến xấu (và trong trường hợp bác sĩ của bạn đã hết giờ làm việc).',
+  [ResultLevel.High]: 'Bạn hãy gọi cho 155 và làm theo hướng dẫn của tổng đài.',
 }
 
 export const getResultLevel = ({

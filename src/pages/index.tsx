@@ -1,20 +1,11 @@
+import Link from 'next/link'
 import React from 'react'
-import { Paper, makeStyles, Typography } from '@material-ui/core'
-import { Form } from '~/components/Form'
+import { makeStyles, Typography, Button } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: 0,
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
+  testButtonContainer: {
+    marginTop: theme.spacing(2),
+    textAlign: 'center',
   },
 }))
 
@@ -22,13 +13,28 @@ const Home = () => {
   const classes = useStyles()
 
   return (
-    <Paper className={classes.paper}>
-      <Typography component="h1" variant="h4" align="center">
-        Covid-19 Test
+    <>
+      <Typography variant="body1" gutterBottom>
+        Chào mừng bạn đến với trang web Covid-19 Tester.
       </Typography>
-
-      <Form />
-    </Paper>
+      <Typography variant="body1" gutterBottom>
+        Tại đây, bạn có thể làm thử “xét nghiệm” trực tuyến Covid-19. Dựa trên
+        những triệu chứng thường gặp nhất, test sẽ đánh giá và đưa ra kết quả về
+        tình trạng sức khoẻ của bạn. Các câu hỏi và những lời khuyên được lập ra
+        bởi các sinh viên y dựa theo các hướng dẫn chính thức của Viện sức khỏe
+        quốc gia SZÚ (cập nhật ngày 18.3.2020) và các thông tin trên trang web
+        chính thức của Bộ y tế CHS. Trong trường hợp cần hỗ trợ phiên dịch liên
+        quan đến Covid-19, xin vui lòng làm trắc nghiệm và sau đó để lại thông
+        tin liên lạc cho các phiên dịch viên của chúng tôi.
+      </Typography>
+      <div className={classes.testButtonContainer}>
+        <Link href="/test">
+          <Button variant="contained" color="primary">
+            Tôi muốn làm xét nghiệm trực tuyến
+          </Button>
+        </Link>
+      </div>
+    </>
   )
 }
 

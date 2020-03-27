@@ -18,10 +18,6 @@ import {
 } from '~/components/Form/steps'
 import { getResultLevel, ResultLevel } from '~/utils/results'
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
 export interface FormValues {
   fever: boolean
   longFever: boolean
@@ -46,15 +42,16 @@ const stepMap: {
     component: React.ComponentType<StepProps>
   }
 } = {
-  [StepName.Step01]: { label: 'Symptomy', component: Step01 },
-  [StepName.Step02]: { label: 'Výsledek', component: Step02 },
-  [StepName.Step03]: { label: 'Odesláno', component: Step03 },
+  [StepName.Step01]: { label: 'Triệu chứng', component: Step01 },
+  [StepName.Step02]: { label: 'Kết quả', component: Step02 },
+  [StepName.Step03]: { label: 'Sent', component: Step03 },
 }
 
 const steps = [StepName.Step01, StepName.Step02]
 
 const useStyles = makeStyles(theme => ({
   buttons: {
+    marginTop: theme.spacing(2),
     display: 'flex',
     justifyContent: 'flex-end',
   },
@@ -62,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
   stepper: {
-    padding: theme.spacing(3, 0, 5),
+    padding: theme.spacing(1, 0),
   },
   progressIcon: {
     position: 'absolute',
@@ -91,7 +88,7 @@ export const Form: React.FC = () => {
 
         handleNext()
       } catch (e) {
-        alert('Něco se pokazilo. Zkuste to znova.')
+        alert('Something went wrong.')
       }
     },
     [activeStep]
@@ -114,7 +111,7 @@ export const Form: React.FC = () => {
         validate={values => {
           const errors: Partial<FormValues> = {}
           if (!values.phone) {
-            errors.phone = 'Povinné'
+            errors.phone = 'Thông tin bắt buộc'
           }
           return errors
         }}
@@ -126,7 +123,7 @@ export const Form: React.FC = () => {
               <div className={classes.buttons}>
                 {activeStep !== 0 && activeStep !== steps.length && (
                   <Button onClick={handleBack} className={classes.button}>
-                    Zpět
+                    Quay trở lại
                   </Button>
                 )}
                 {activeStep === steps.length - 1 &&
@@ -137,7 +134,7 @@ export const Form: React.FC = () => {
                       disabled={formikProps.isSubmitting}
                       onClick={formikProps.submitForm}
                     >
-                      Odeslat
+                      Gửi đi
                       {formikProps.isSubmitting && (
                         <CircularProgress
                           size={24}
@@ -152,7 +149,7 @@ export const Form: React.FC = () => {
                     color="primary"
                     onClick={handleNext}
                   >
-                    Další
+                    Tiếp tục
                   </Button>
                 )}
               </div>

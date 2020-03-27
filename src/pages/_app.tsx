@@ -1,12 +1,16 @@
-import { CssBaseline, makeStyles } from '@material-ui/core'
+import {
+  Box,
+  CssBaseline,
+  makeStyles,
+  Paper,
+  Typography,
+} from '@material-ui/core'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import Link from 'next/link'
 import React from 'react'
 
 const useStyles = makeStyles(theme => ({
-  appBar: {
-    position: 'relative',
-  },
   layout: {
     width: 'auto',
     marginTop: 0,
@@ -15,6 +19,22 @@ const useStyles = makeStyles(theme => ({
       marginLeft: 'auto',
       marginRight: 'auto',
     },
+  },
+  paper: {
+    marginTop: 0,
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
+  },
+  title: {
+    cursor: 'pointer',
+  },
+  content: {
+    paddingTop: theme.spacing(2),
   },
 }))
 
@@ -38,7 +58,21 @@ function MyApp({ Component, pageProps }: AppProps) {
       <CssBaseline />
 
       <main className={classes.layout}>
-        <Component {...pageProps} />
+        <Paper className={classes.paper}>
+          <Link href="/">
+            <Typography
+              component="h1"
+              variant="h4"
+              align="center"
+              className={classes.title}
+            >
+              Covid-19 Tester
+            </Typography>
+          </Link>
+          <div className={classes.content}>
+            <Component {...pageProps} />
+          </div>
+        </Paper>
       </main>
     </>
   )
